@@ -6,6 +6,27 @@ Built and maintained by [4T Technologies](https://4t-technologies.co.uk).
 
 ---
 
+## Cookie Consent & Privacy
+
+All analytics in this repository are gated behind explicit cookie consent. **No data is collected until a visitor clicks Accept on the cookie banner.**
+
+The consent mechanism is fully documented and the source code is published here:
+
+| File | Purpose |
+|------|---------|
+| [`consent/CookieConsent.tsx`](./consent/CookieConsent.tsx) | The banner component, `getCookieConsent()`, and `getVisitorId()` — the exact code that runs in the visitor's browser |
+| [`consent/HOW-CONSENT-WORKS.md`](./consent/HOW-CONSENT-WORKS.md) | Plain-English explanation of every consent check, with code excerpts showing each guard |
+
+Key points:
+- Consent status is stored in the visitor's own browser (`localStorage`) — not on our servers
+- `getCookieConsent() \!== "accepted"` is checked at the start of every tracking call
+- `getVisitorId()` independently returns `null` if consent is not accepted — a second layer
+- Declining removes the visitor ID from localStorage immediately
+- Admin pages are always excluded from tracking
+- The server re-checks the consent flag before writing any IP data
+
+---
+
 ## What This Dashboard Shows
 
 - **Unique Visitors** — distinct visitors over time
